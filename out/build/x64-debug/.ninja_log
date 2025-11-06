@@ -1,8 +1,11 @@
 # ninja log v6
-19	1142	7704575946868502	CMNexus/CMakeFiles/CMNexus.dir/src/CMTcpServer.cpp.obj	f2e6a0e2e1d3eeb3
-26	1629	7705525501446811	CMNexus/CMakeFiles/CMNexus.dir/CMNexus.cpp.obj	33e30bdcacf1029a
-47	713	7705352352264173	CMNexus/CMakeFiles/CMNexus.dir/src/CMAbstractTcpServer.cpp.obj	fc523dd432ad994c
-1450	1746	7705540112905044	CMNexus/CMNexus.exe	7367032718a2b937
-85	1675	7705521381636099	CMNexus/CMakeFiles/CMNexus.dir/src/CMAbstractThreadPool.cpp.obj	2f665cf794fe31ca
-52	1058	7705525501702184	CMNexus/CMakeFiles/CMNexus.dir/src/CMIOCPThreadPool.cpp.obj	76242814f3e37bf8
-40	1449	7705540098842249	CMNexus/CMakeFiles/CMNexus.dir/src/CMIOCPTcpServer.cpp.obj	27e6603034e6d1ec
+136	3196	7841144093191073	CMNexus/CMakeFiles/CMNexus.dir/src/CMThreadPool.cpp.obj	53d27be8c0fee376
+74	3314	7841144092456770	CMNexus/CMakeFiles/CMNexus.dir/src/AbstractIOCompletionPortServer.cpp.obj	83820e97ea62ebe7
+119	3327	7841144093034848	CMNexus/CMakeFiles/CMNexus.dir/src/DataHeaderInit.cpp.obj	a413196dec8e78e4
+87	3489	7841144092728195	CMNexus/CMakeFiles/CMNexus.dir/src/AbstractCommondSolve.cpp.obj	b6a8327983f8004d
+149	3727	7841144093336565	CMNexus/CMakeFiles/CMNexus.dir/src/OverlappedPerIOPool.cpp.obj	df1f5428a0dfc0a3
+154	4134	7841144093357439	CMNexus/CMakeFiles/CMNexus.dir/src/CMFileSolve.cpp.obj	c329abb28f667150
+104	4400	7841144092874294	CMNexus/CMakeFiles/CMNexus.dir/src/CommondSolve.cpp.obj	e71c684f023e848f
+51	5184	7841144092263467	CMNexus/CMakeFiles/CMNexus.dir/CMNexus.cpp.obj	654294b2eca6a0c5
+160	5325	7841144093357439	CMNexus/CMakeFiles/CMNexus.dir/src/CMTcpServer.cpp.obj	e701c0346c5317cc
+5326	6185	7841144145104204	CMNexus/CMNexus.exe	f937a292b0a7a348

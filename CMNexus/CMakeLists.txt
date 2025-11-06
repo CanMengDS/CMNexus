@@ -3,10 +3,14 @@
 #
 
 # 将源代码添加到此项目的可执行文件。
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-add_executable (CMNexus "CMNexus.cpp" "include/CMNexus.h" "include/CMAbstractTcpServer.h" "src/CMAbstractTcpServer.cpp" "include/CMIOCPTcpServer.h" "src/CMIOCPTcpServer.cpp" "include/CMAbstractThreadPool.h"  "src/CMIOCPThreadPool.cpp")
+add_executable (CMNexus "CMNexus.cpp" "include/CMNexus.h"  "src/AbstractIOCompletionPortServer.cpp" "include/CMNetDefs.h" "include/AbstractCommondSolve.h" "src/AbstractCommondSolve.cpp" "include/CommondSolve.h" "src/CommondSolve.cpp" "include/DataHeaderInit.h" "src/DataHeaderInit.cpp" "include/CMThreadPool.hpp" "src/CMThreadPool.cpp" "include/OverlappedPerIOPool.h" "src/OverlappedPerIOPool.cpp" "include/CMFileSolve.h" "src/CMFileSolve.cpp" "include/CMTcpServer.h" "src/CMTcpServer.cpp")
 
-target_link_libraries(CMNexus PRIVATE ws2_32 mswsock)
+
+target_include_directories(
+    CMNexus          # 绑定到你的可执行目标（必须和 add_executable 的目标名称一致）
+    PRIVATE          # 作用域（可执行项目用 PRIVATE，库项目用 PUBLIC）
+    ${CMAKE_CURRENT_SOURCE_DIR}/include  # 头文件目录路径
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CMNexus PROPERTY CXX_STANDARD 20)

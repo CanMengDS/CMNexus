@@ -1,44 +1,24 @@
 ﻿// CMNexus.cpp: 定义应用程序的入口点。
 //
+#include "CMTcpServer.h"
+#include "CMThreadPool.hpp"
+#include "CMNetDefs.h"
+#define DEFAULT_SIZE 1024
 
-#include "../CMNexus/include/CMNexus.h"
-#define DEFAULT_PORT 5408
-
-int main()
-{
-	mutex temp_lock;
-	condition_variable temp_cv;
-
-	CMIOCPTcpServer cm_server;
-	CMIOCPThreadPool cm_pool(4);
-	ServerParams pms{ 0 };
-	pms.server = &cm_server;
-
-	while (1) {
-		if (!cm_server.InitServer(DEFAULT_PORT, pms)) {
-			closesocket(pms.sock);
-			CloseHandle(pms.iocp);
-			cerr << "初始化服务器错误..." << endl;
-			system("pause");
-			continue;
-		}
-		break;
+int main() {
+	TcpServer server("5408");
+	ServerParms pms;
+	if (!server.InitServer(pms)) {
+		std::cerr << "初始化服务端失败" << '\n';
+		return 666;
+	}
+	else {
+		std::cout << "初始化服务端成功" << std::endl;
 	}
 
-	function<void()> func = std::bind(&CMIOCPTcpServer::IOCPWokerThread, &cm_server, pms);
-	for (int i = 0; i < 4; i++) {
-		cm_pool.PostTask(func);
-	}
-	cm_server.PostAccept(pms.sock);
+	for (int i = 0; i <= 3; i++) server.PostAcceptEx(pms.listen_socket);
 
-	thread t([&temp_cv,&temp_lock] {
-		unique_lock<mutex> lock(temp_lock);
-		temp_cv.wait(lock,[]{
-			return false;
-			});
-		});
-	t.join();
-
-	cout << "Hello CMake." << endl;
-	return 0;
+	CMThreadPool pool(3);
+	server.setWorkThreadModel(DEFAULT_WORKER_THREAD);
+	server.StartPostWokerThread(3);
 }

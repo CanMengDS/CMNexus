@@ -1,8 +1,8 @@
-# Install script for directory: D:/CMNexus/CMNexus/CMNexus
+# Install script for directory: E:/替换到Github/CMNexus/CMNexus/CMNexus
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/CMNexus/CMNexus/out/install/x64-debug")
+  set(CMAKE_INSTALL_PREFIX "E:/替换到Github/CMNexus/CMNexus/out/install/x64-debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -32,3 +32,9 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+if(CMAKE_INSTALL_LOCAL_ONLY)
+  file(WRITE "E:/替换到Github/CMNexus/CMNexus/out/build/x64-debug/CMNexus/install_local_manifest.txt"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+endif()
