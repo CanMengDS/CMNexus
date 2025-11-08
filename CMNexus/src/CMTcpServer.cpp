@@ -19,9 +19,6 @@ TcpServer::TcpServer(std::string port)
 	pool = new CMThreadPool(3);
 	woker = new DefaultWoker;
 	commondSolve = new CMCommondSolve;
-
-	commondSolve->AddCommondsFirst("SendFile");
-	commondSolve->AddCommondsFirst("GiveTotalClientId");
 }
 
 bool TcpServer::InitServer(ServerParms& pms)
@@ -142,12 +139,13 @@ void DefaultWoker::DefaultWokerFunction(ServerParms& pms, TcpServer* const serve
 	ReturnValueSolve returnValueSolve;
 	char buffer[DEFAULT_SIZE];
 	overlpPool = new OverlappedPerIOPool(10);
+	std::vector<int> client_id;
 
 	std::string tempServerAgainInfor = "HelloClient";
 	std::string ResourceId = "CANMENG_PERMIT_USER";
 
 	SOCKET acceptBlockFile = INVALID_SOCKET;
-	MFileSolve file_solve;
+	CMFileSolve file_solve;
 	std::string defaultTempFileName = "temp";
 	while (1) {
 		bool result = GetQueuedCompletionStatus(completionPort, &realBytes, &key, (LPOVERLAPPED*)&overlp, INFINITE);
@@ -224,11 +222,19 @@ void DefaultWoker::DefaultWokerFunction(ServerParms& pms, TcpServer* const serve
 			}break;
 			case RECV_CASE::CLIENT_RELAY: {
 				returnValueSolve.clientRelay();
+				if (header.PresentConduct == 1) {
+					ReturnTotalClientId(overlp,server,header,client_id);
+					continue;
+				}
 				ReturnToAdminData(overlp, header, tempServerAgainInfor);
 				continue;
 			}break;
 			case RECV_CASE::CLIENT_TO_SERVER: {
 				returnValueSolve.clientToServer(overlp->buffer, realBytes, header);
+				if (header.PresentConduct == 1) {
+					ReturnTotalClientId(overlp, server, header,client_id);
+					continue;
+				}
 				if (header.identity == 21) {
 					ReturnUserClientAlive(overlp, header);
 					continue;
@@ -332,7 +338,7 @@ RECV_CASE DefaultWoker::DefaultGetQueuedCompletionPort_RecvCase(DWORD realBytes,
 	DataHeader& header,
 	char* buffer,
 	const int bufferLen,
-	MFileSolve& fileSolve, std::string& defaultTempFileName,
+	CMFileSolve& fileSolve, std::string& defaultTempFileName,
 	TcpServer* server)
 {
 	if (realBytes <= 0) {
@@ -430,6 +436,29 @@ void DefaultWoker::ReturnUserClientAlive(OverlappedPerIO* overlp, DataHeader& he
 	DWORD byte = 0;
 	WSASend(overlp->socket, &(overlp->wsaBuf), 1, &byte, 0, &(overlp->overlapped), 0);
 	std::cout << "成功回应用户客户端数据" << std::endl;
+}
+
+void DefaultWoker::ReturnTotalClientId(OverlappedPerIO* overlp,const TcpServer* server,DataHeader& header, std::vector<int>& client_id)
+{
+	memset(client_id.data(), 0, client_id.size() * sizeof(int));
+	for (auto& e : server->clientInformation) {
+		client_id.push_back(e.first);
+	}
+	ZeroMemory(overlp->buffer, sizeof(overlp->buffer));
+	ZeroMemory(&header, sizeof(DataHeader));
+	header.dataType = htons(4);
+	header.identity = htons(0);
+	header.PresentConduct = htons(1);
+	header.presentDataBytes = htons(client_id.size() * sizeof(int));
+
+	overlp->type = IO_TYPE::IO_SEND;
+	memcpy(overlp->buffer, &header, sizeof(DataHeader));
+	memcpy(overlp->buffer + sizeof(DataHeader), client_id.data(), client_id.size() * sizeof(int));
+	overlp->wsaBuf.buf = overlp->buffer;
+	overlp->wsaBuf.len = sizeof(DataHeader) + (client_id.size() * sizeof(int));
+
+	DWORD byte = 0;
+	WSASend(overlp->socket, &(overlp->wsaBuf), 1, &byte, 0, &(overlp->overlapped), 0);
 }
 
 void ReturnValueSolve::clientDataError()

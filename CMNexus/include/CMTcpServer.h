@@ -1,5 +1,5 @@
 #pragma once
-#include "AbstractIOCompletionPortServer.h"
+#include "../include/Abstract/AbstractIOCompletionPortServer.h"
 #include <map>
 #include "CMNetDefs.h"
 #include "CMThreadPool.hpp"
@@ -50,12 +50,12 @@ private:
 		DataHeader& header,
 		char* buffer,
 		const int bufferLen,
-		MFileSolve& file_solve,
+		CMFileSolve& file_solve,
 		std::string& defaultTempFileName,
 		TcpServer* server);
 	void ReturnToAdminData(OverlappedPerIO* overlp, DataHeader& header, std::string tempServerAgainInfor);
 	void ReturnUserClientAlive(OverlappedPerIO* overlp, DataHeader& header);
-
+	void ReturnTotalClientId(OverlappedPerIO* overlp, const TcpServer* server, DataHeader& header, std::vector<int>& client_id);
 	OverlappedPerIOPool* overlpPool = nullptr;
 };
 

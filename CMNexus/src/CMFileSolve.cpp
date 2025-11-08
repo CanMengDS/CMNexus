@@ -1,13 +1,13 @@
 #include"CMFileSolve.h"
 
-void MFileSolve::CreateAndWriteFile(std::string path, const char* data, const int len)
+void CMFileSolve::CreateAndWriteFile(std::string path, const char* data, const int len)
 {
     std::ofstream ofs(path, std::ios::out | std::ios::binary);
     ofs.write(data, len);
     ofs.close();
 }
 
-size_t MFileSolve::ReadFile(std::string path, char* buffer, const int maxlen)
+size_t CMFileSolve::ReadFile(std::string path, char* buffer, const int maxlen)
 {
     //if (fst != nullptr && just_one) return 0;
     if (just_one) {
@@ -22,12 +22,12 @@ size_t MFileSolve::ReadFile(std::string path, char* buffer, const int maxlen)
     return fst->gcount();
 }
 
-size_t MFileSolve::GetTotalSize(std::string path)
+size_t CMFileSolve::GetTotalSize(std::string path)
 {
     return fs::file_size(path);
 }
 
-size_t MFileSolve::WriteFile(std::string path, char* buffer, int len)
+size_t CMFileSolve::WriteFile(std::string path, char* buffer, int len)
 {
     if (just_one) {
         fst = new std::fstream(path, std::ios::out | std::ios::binary | std::ios::app);
@@ -48,7 +48,7 @@ size_t MFileSolve::WriteFile(std::string path, char* buffer, int len)
     return bytes;
 }
 
-MFileSolve::~MFileSolve()
+CMFileSolve::~CMFileSolve()
 {
     if (fst != nullptr) delete fst;
 }
