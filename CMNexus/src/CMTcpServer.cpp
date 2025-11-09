@@ -1,6 +1,6 @@
-#include "CMTcpServer.h"
-#include "OverlappedPerIOPool.h"
-#include "CommondSolve.h"
+#include "../include/CMTcpServer.h"
+#include "../include/OverlappedPerIOPool.h"
+#include "../include/utils/CommondSolve.h"
 #include <random>
 
 TcpServer::TcpServer(std::string port)
@@ -21,7 +21,7 @@ TcpServer::TcpServer(std::string port)
 	commondSolve = new CMCommondSolve;
 }
 
-bool TcpServer::InitServer(ServerParms& pms)
+bool TcpServer::InitServer(NetParms& pms)
 {
 	if ((GetListenSocket() = WSASocket(AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED)) == INVALID_SOCKET)return false;
 	sockaddr_in addr;
@@ -43,7 +43,7 @@ bool TcpServer::InitServer(ServerParms& pms)
 
 	if ((GetCompletionPort() = CreateIoCompletionPort(INVALID_HANDLE_VALUE, 0, 0, 0)) != NULL) {
 		if (CreateIoCompletionPort((HANDLE)GetListenSocket(), GetCompletionPort(), NULL, 0) != NULL) {
-			pms.listen_socket = GetListenSocket();
+			pms.socket = GetListenSocket();
 			pms.iocp = GetCompletionPort();
 			this->pms = &pms;
 			return true;
@@ -99,7 +99,7 @@ bool TcpServer::PostAcceptEx(SOCKET& listenSocket)
 bool TcpServer::setWorkThreadModel(const int model)
 {
 	if (model == DEFAULT_WORKER_THREAD) {
-		if (pms->iocp == NULL || pms->listen_socket == INVALID_SOCKET) return false;
+		if (pms->iocp == NULL || pms->socket == INVALID_SOCKET) return false;
 		return true;
 	}
 }
@@ -121,11 +121,11 @@ TcpServer::~TcpServer()
 	WSACleanup();
 }
 
-void DefaultWoker::DefaultWokerFunction(ServerParms& pms, TcpServer* const server)
+void DefaultWoker::DefaultWokerFunction(NetParms& pms, TcpServer* const server)
 {
 	std::cout << "工作线程启动+1" << std::endl;
 	HANDLE completionPort = pms.iocp;
-	SOCKET listenSocket = pms.listen_socket;
+	SOCKET listenSocket = pms.socket;
 
 	std::random_device randomSur;
 	std::mt19937 engine(randomSur());
@@ -289,12 +289,12 @@ DefaultWoker::~DefaultWoker()
 	}
 }
 
-void(DefaultWoker::* DefaultWoker::GetDefaultWokerFunction())(ServerParms&, TcpServer* server)
+void(DefaultWoker::* DefaultWoker::GetDefaultWokerFunction())(NetParms&, TcpServer* server)
 {
 	return &DefaultWoker::DefaultWokerFunction;
 }
 
-void DefaultWoker::PostDefaultWokerFunction(ServerParms& pms, TcpServer* const server)
+void DefaultWoker::PostDefaultWokerFunction(NetParms& pms, TcpServer* const server)
 {
 	DefaultWokerFunction(pms, server);
 }

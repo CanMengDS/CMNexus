@@ -6,13 +6,13 @@
 #include <WS2tcpip.h>
 #include <MSWSock.h>
 
-struct ServerParms;
+struct NetParms;
 
 class AbstractIOCompletionPortServer {
 public:
 	AbstractIOCompletionPortServer() = default;
 	~AbstractIOCompletionPortServer() = default;
-	virtual bool InitServer(ServerParms& pms) = 0;
+	virtual bool InitServer(NetParms& pms) = 0;
 	static bool PostAcceptEx(SOCKET& listenSocket);
 	SOCKET& GetListenSocket();
 	HANDLE& GetCompletionPort();

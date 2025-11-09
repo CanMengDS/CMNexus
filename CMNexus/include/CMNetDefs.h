@@ -45,8 +45,8 @@ enum class RECV_CASE {
 	UNKONWN_ERROR
 };
 
-struct ServerParms {
-	SOCKET listen_socket;
+struct NetParms {
+	SOCKET socket;
 	HANDLE iocp;
 };
 
@@ -79,5 +79,3 @@ typedef struct OverlappedPerIO {
 	int clientId; //每一个client对应一个OverlappedPerIO，lientIdIndex则是对应了当前OverlappedPerIO对应的client的clientId，方便资源回收时通过overlp找到对应SOCKET进行清理
 	char buffer[DEFAULT_SIZE];
 };
-
-//#pragma pack(pop) 

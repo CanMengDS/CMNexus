@@ -1,11 +1,11 @@
 #pragma once
 #include "../include/Abstract/AbstractIOCompletionPortServer.h"
 #include <map>
-#include "CMNetDefs.h"
-#include "CMThreadPool.hpp"
-#include "CMFileSolve.h"
-#include "DataHeaderInit.h"
-#include "CommondSolve.h"
+#include "../include/CMNetDefs.h"
+#include "../include/CMThreadPool.hpp"
+#include "../include/utils/CMFileSolve.h"
+#include "../include/utils/DataHeaderInit.h"
+#include "../include/utils/CommondSolve.h"
 
 #define DEFAULT_WORKER_THREAD 0
 #define CUSTOM_WORKER_THREAD 1
@@ -18,7 +18,7 @@ class TcpServer : public AbstractIOCompletionPortServer {
 	friend class DefaultWoker;
 public:
 	TcpServer(std::string port);
-	bool InitServer(ServerParms& pms);
+	bool InitServer(NetParms& pms);
 	static bool PostAcceptEx(SOCKET& listenSocket);
 	bool setWorkThreadModel(const int model);
 	void StartPostWokerThread(const unsigned short threads);
@@ -27,7 +27,7 @@ public:
 private:
 	CMThreadPool* pool;
 	DefaultWoker* woker;
-	ServerParms* pms;
+	NetParms* pms;
 	CMCommondSolve* commondSolve;
 	std::map<int, SOCKET> clientInformation;
 	std::mutex tex;
@@ -37,11 +37,11 @@ class DefaultWoker {
 public:
 	DefaultWoker() = default;
 	~DefaultWoker();
-	void(DefaultWoker::* GetDefaultWokerFunction())(ServerParms&, TcpServer* server);
-	void PostDefaultWokerFunction(ServerParms& pms, TcpServer* const server);
+	void(DefaultWoker::* GetDefaultWokerFunction())(NetParms&, TcpServer* server);
+	void PostDefaultWokerFunction(NetParms& pms, TcpServer* const server);
 private:
 
-	void DefaultWokerFunction(ServerParms& pms, TcpServer* const server);
+	void DefaultWokerFunction(NetParms& pms, TcpServer* const server);
 	void CloseClientResource(OverlappedPerIO* overlp);
 	void DefaultGetQueuedCompletionPort_AcceptCase(SOCKET listenSocket, OverlappedPerIO* overlp, HANDLE completionPort);
 	RECV_CASE DefaultGetQueuedCompletionPort_RecvCase(DWORD realBytes,

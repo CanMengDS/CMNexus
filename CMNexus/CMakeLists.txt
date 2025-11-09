@@ -3,7 +3,7 @@
 #
 
 # 将源代码添加到此项目的可执行文件。
-add_executable (CMNexus "CMNexus.cpp" "include/CMNexus.h"  "include/Abstract/AbstractIOCompletionPortServer.h" "src/AbstractIOCompletionPortServer.cpp" "include/CMNetDefs.h" "include/Abstract/AbstractCommondSolve.h"  "include/CommondSolve.h" "src/CommondSolve.cpp" "include/DataHeaderInit.h" "src/DataHeaderInit.cpp" "include/CMThreadPool.hpp" "src/CMThreadPool.cpp" "include/OverlappedPerIOPool.h" "src/OverlappedPerIOPool.cpp" "include/CMFileSolve.h" "src/CMFileSolve.cpp" "include/CMTcpServer.h" "src/CMTcpServer.cpp")
+add_executable (CMNexus "CMNexus.cpp" "include/CMNexus.h"  "include/Abstract/AbstractIOCompletionPortServer.h" "src/AbstractIOCompletionPortServer.cpp" "include/CMNetDefs.h" "include/Abstract/AbstractCommondSolve.h"  "include/utils/CommondSolve.h" "src/CommondSolve.cpp" "include/utils/DataHeaderInit.h" "src/DataHeaderInit.cpp" "include/CMThreadPool.hpp" "src/CMThreadPool.cpp" "include/OverlappedPerIOPool.h" "src/OverlappedPerIOPool.cpp" "include/utils/CMFileSolve.h" "src/CMFileSolve.cpp" "include/CMTcpServer.h" "src/CMTcpServer.cpp" "include/Abstract/AbstractIOCompletionPortClient.h" "include/CMTcpClient.h" "include/utils/CMNetData.h" "src/CMNetData.cpp" "src/CMTcpClient.cpp")
 
 
 target_include_directories(

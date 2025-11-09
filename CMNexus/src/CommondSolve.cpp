@@ -1,4 +1,4 @@
-#include "../include/CommondSolve.h"
+#include "../include/utils/CommondSolve.h"
 #include "../include/CMNetDefs.h"
 
 void CMCommondSolve::AddCommondsFirst(std::string first, std::function<void(DataHeader*, int)> func)

@@ -149,6 +149,24 @@ build CMNexus\CMakeFiles\CMNexus.dir\src\CMTcpServer.cpp.obj: CXX_COMPILER__CMNe
   TARGET_COMPILE_PDB = CMNexus\CMakeFiles\CMNexus.dir\
   TARGET_PDB = CMNexus\CMNexus.pdb
 
+build CMNexus\CMakeFiles\CMNexus.dir\src\CMNetData.cpp.obj: CXX_COMPILER__CMNexus_unscanned_Debug E$:\替换到Github\CMNexus\CMNexus\CMNexus\src\CMNetData.cpp || cmake_object_order_depends_target_CMNexus
+  CONFIG = Debug
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IE:\替换到Github\CMNexus\CMNexus\CMNexus\include
+  OBJECT_DIR = CMNexus\CMakeFiles\CMNexus.dir
+  OBJECT_FILE_DIR = CMNexus\CMakeFiles\CMNexus.dir\src
+  TARGET_COMPILE_PDB = CMNexus\CMakeFiles\CMNexus.dir\
+  TARGET_PDB = CMNexus\CMNexus.pdb
+
+build CMNexus\CMakeFiles\CMNexus.dir\src\CMTcpClient.cpp.obj: CXX_COMPILER__CMNexus_unscanned_Debug E$:\替换到Github\CMNexus\CMNexus\CMNexus\src\CMTcpClient.cpp || cmake_object_order_depends_target_CMNexus
+  CONFIG = Debug
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IE:\替换到Github\CMNexus\CMNexus\CMNexus\include
+  OBJECT_DIR = CMNexus\CMakeFiles\CMNexus.dir
+  OBJECT_FILE_DIR = CMNexus\CMakeFiles\CMNexus.dir\src
+  TARGET_COMPILE_PDB = CMNexus\CMakeFiles\CMNexus.dir\
+  TARGET_PDB = CMNexus\CMNexus.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CMNexus
@@ -157,7 +175,7 @@ build CMNexus\CMakeFiles\CMNexus.dir\src\CMTcpServer.cpp.obj: CXX_COMPILER__CMNe
 #############################################
 # Link the executable CMNexus\CMNexus.exe
 
-build CMNexus\CMNexus.exe: CXX_EXECUTABLE_LINKER__CMNexus_Debug CMNexus\CMakeFiles\CMNexus.dir\CMNexus.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\AbstractIOCompletionPortServer.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CommondSolve.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\DataHeaderInit.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMThreadPool.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\OverlappedPerIOPool.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMFileSolve.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMTcpServer.cpp.obj
+build CMNexus\CMNexus.exe: CXX_EXECUTABLE_LINKER__CMNexus_Debug CMNexus\CMakeFiles\CMNexus.dir\CMNexus.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\AbstractIOCompletionPortServer.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CommondSolve.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\DataHeaderInit.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMThreadPool.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\OverlappedPerIOPool.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMFileSolve.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMTcpServer.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMNetData.cpp.obj CMNexus\CMakeFiles\CMNexus.dir\src\CMTcpClient.cpp.obj
   CONFIG = Debug
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
